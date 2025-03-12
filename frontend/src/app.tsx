@@ -1,7 +1,7 @@
 // src/App.tsx
 import { useEffect, useState } from "react";
 import axios from "axios";
-import LeaderboardChart from "./leaderboard"; // Make sure this is a functional component
+import LeaderboardChart from "./leaderboard"; // Import the chart component
 import React from "react";
 
 interface LeaderboardEntry {
@@ -34,7 +34,7 @@ function App() {
           ))}
         </ul>
         {}
-        <LeaderboardChart data={leaderboard} />
+        <LeaderboardChart />
       </div>
     </div>
   );
