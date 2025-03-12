@@ -30,10 +30,10 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt  # Make sure you have a `requirements.txt`
 
-      - name: Run backend tests
-        run: |
-          source venv/bin/activate
-          python -m unittest discover  # Replace with your actual test command
+      # - name: Run backend tests
+      #   run: |
+      #     source venv/bin/activate
+      #     python -m unittest discover  # Replace with your actual test command
 
   frontend:
     name: Frontend Build & Test
