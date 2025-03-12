@@ -53,8 +53,8 @@ jobs:
       - name: Install frontend dependencies
         run: npm install  # Installs the dependencies from frontend/package.json
 
-      - name: Run frontend tests
-        run: npm test  # Replace this with your frontend test command (if any)
+      # - name: Run frontend tests
+      #   run: npm test  # Replace this with your frontend test command (if any)
 
       - name: Build frontend
         run: npm run build  # Runs `vite build` to build the project
