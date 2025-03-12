@@ -3,7 +3,7 @@ name: Leaderboard CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Runs on push to main
+      - main
   pull_request:
     branches:
       - main
@@ -14,28 +14,33 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: backend
+        working-directory: backend  # Working in the backend folder
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          node-version: 18
+          python-version: '3.x'  # Use the appropriate version of Python
 
       - name: Install backend dependencies
-        run: npm install
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt  # Make sure you have a `requirements.txt`
 
       - name: Run backend tests
-        run: npm test  # Modify this if you don’t have tests
+        run: |
+          source venv/bin/activate
+          python -m unittest discover  # Replace with your actual test command
 
   frontend:
     name: Frontend Build & Test
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend
+        working-directory: frontend  # Working in the frontend folder
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -46,20 +51,21 @@ jobs:
           node-version: 18
 
       - name: Install frontend dependencies
-        run: npm install
+        run: npm install  # Installs the dependencies from frontend/package.json
 
       - name: Run frontend tests
-        run: npm test  # Modify this if you don’t have tests
+        run: npm test  # Replace this with your frontend test command (if any)
 
       - name: Build frontend
-        run: npm run build  # Only if using a framework like React/Vite
+        run: npm run build  # Runs `vite build` to build the project
 
   deploy:
     name: Deploy App
-    needs: [backend, frontend]  
+    needs: [backend, frontend]
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to Server
-        run: echo "Deploying leaderboard app..."
-       
+      - name: Checkout code
+        uses: actions/checkout@v3
 
+      - name: Deploy to Server
+        run: echo "Deploying leaderboard app..."  # Replace this with your actual deployment steps
