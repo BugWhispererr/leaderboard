@@ -1,7 +1,7 @@
 // src/App.tsx
 import { useEffect, useState } from "react";
 import axios from "axios";
-import LeaderboardChart from "./leaderboard"; // Import the chart component
+import LeaderboardChart from "../src/leaderboard"; // Adjust the import path to your file
 import React from "react";
 
 interface LeaderboardEntry {
@@ -13,10 +13,16 @@ function App() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:5000/leaderboard")
-      .then((response) => setLeaderboard(response.data))
-      .catch((error) => console.error("Error fetching leaderboard:", error));
+    const intervalId = setInterval(() => {
+      // Fetch leaderboard data every 5 seconds
+      axios
+        .get("http://127.0.0.1:5000/leaderboard") // Update this URL to your API
+        .then((response) => setLeaderboard(response.data))
+        .catch((error) => console.error("Error fetching leaderboard:", error));
+    }, 5000); // Adjust the interval as needed
+
+    // Cleanup on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -33,8 +39,8 @@ function App() {
             </li>
           ))}
         </ul>
-        {}
-        <LeaderboardChart />
+        {/* Pass the leaderboard data to the chart */}
+        <LeaderboardChart data={leaderboard} />
       </div>
     </div>
   );

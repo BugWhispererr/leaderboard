@@ -10,7 +10,7 @@ fake = Faker()
 # Generate Fake Leaderboard Data
 def generate_leaderboard():
     return [
-        {"name": fake.name(), "score": random.randint(0, 1000)}
+        {"name": fake.name(), "score": random.randint(0, 900)}
         for _ in range(10)  # Adjust number of users
     ]
 

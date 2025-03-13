@@ -1,20 +1,27 @@
 // src/components/LeaderboardChart.tsx
 import React from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
-// Sample data structure for the leaderboard
-const data = [
-  { name: "John", score: 4000 },
-  { name: "Alice", score: 3000 },
-  { name: "Bob", score: 2000 },
-  { name: "Charlie", score: 2780 },
-  { name: "David", score: 1890 },
-];
+// Define the props for the LeaderboardChart component
+interface LeaderboardChartProps {
+  data: { name: string; score: number }[]; // Expect an array of objects with `name` and `score`
+}
 
-const LeaderboardChart: React.FC = () => {
+const LeaderboardChart: React.FC<LeaderboardChartProps> = ({ data }) => {
   return (
     <div className="p-4 bg-gray-800 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold text-white mb-4">Leaderboard Visualization</h2>
+      <h2 className="text-2xl font-bold text-white mb-4">
+        Leaderboard Visualization
+      </h2>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
