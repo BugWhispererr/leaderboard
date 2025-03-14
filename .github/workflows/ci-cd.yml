@@ -30,10 +30,11 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt  # Make sure you have a `requirements.txt`
 
+      # Uncomment and replace with your actual backend test command
       # - name: Run backend tests
       #   run: |
       #     source venv/bin/activate
-      #     python -m unittest discover  # Replace with your actual test command
+      #     python -m unittest discover  
 
   frontend:
     name: Frontend Build & Test
@@ -51,13 +52,14 @@ jobs:
           node-version: 18
 
       - name: Install frontend dependencies
-        run: npm install 
+        run: npm install
 
+      # Uncomment and replace with your actual frontend test command
       # - name: Run frontend tests
       #   run: npm test
 
       - name: Build frontend
-        run: npm run build  # Runs `vite build` to build the project
+        run: npm run build  # Runs `tsc && vite build` to build the project
 
   deploy:
     name: Deploy App
@@ -67,5 +69,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy to Server
-        run: echo "Deploying leaderboard app..." 
+      # Deploy Backend to Render
+      - name: Deploy Backend to Render
+        run: |
+          echo "Deploying backend to Render..."
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "service_id": "YOUR_BACKEND_SERVICE_ID"
+            }' \
+            https://api.render.com/v1/services/deploy
+
+      # Deploy Frontend to Render
+      - name: Deploy Frontend to Render
+        run: |
+          echo "Deploying frontend to Render..."
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "service_id": "YOUR_FRONTEND_SERVICE_ID"
+            }' \
+            https://api.render.com/v1/services/deploy
