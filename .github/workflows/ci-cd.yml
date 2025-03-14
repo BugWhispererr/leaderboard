@@ -51,10 +51,10 @@ jobs:
           node-version: 18
 
       - name: Install frontend dependencies
-        run: npm install  # Installs the dependencies from frontend/package.json
+        run: npm install 
 
       # - name: Run frontend tests
-      #   run: npm test  # Replace this with your frontend test command (if any)
+      #   run: npm test
 
       - name: Build frontend
         run: npm run build  # Runs `vite build` to build the project
@@ -68,4 +68,4 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Deploy to Server
-        run: echo "Deploying leaderboard app..."  # Replace this with your actual deployment steps
+        run: echo "Deploying leaderboard app..." 
